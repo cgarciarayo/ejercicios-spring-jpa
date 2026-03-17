@@ -39,6 +39,11 @@ public class EjerciciosSpringJpaApplication {
 
             bookRepository.findBooksPublishedAfterYear(2001)
                     .forEach(book -> System.out.println(book.getTitle()));
+
+            System.out.println("Metodo automatico JPA:");
+
+            bookRepository.findByPublicationYearGreaterThan(2001)
+                    .forEach(book -> System.out.println(book.getTitle()));
         };
     }
 }

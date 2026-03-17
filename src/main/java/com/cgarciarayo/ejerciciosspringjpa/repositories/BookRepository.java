@@ -22,4 +22,13 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     @Query("SELECT book FROM Book book WHERE book.publicationYear > ?1")
     List<Book> findBooksPublishedAfterYear(Integer publicationYear);
 
+    /**
+     * Obtengo los libros cuyo año de publicación es mayor que el indicado
+     * utilizando la convención de nombres de Spring Data JPA.
+     *
+     * @param publicationYear año de publicación de referencia
+     * @return lista de libros publicados después del año indicado
+     */
+    List<Book> findByPublicationYearGreaterThan(Integer publicationYear);
+
 }
