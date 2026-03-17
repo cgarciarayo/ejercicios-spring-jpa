@@ -33,7 +33,12 @@ public class EjerciciosSpringJpaApplication {
             System.out.println("Libros: " + bookRepository.findAll().size());
             System.out.println("Editoriales: " + publisherRepository.findAll().size());
             System.out.println("Tematicas: " + themeRepository.findAll().size());
+            System.out.println("Libros despues de 2001:");
 
+            System.out.println("Libros publicados despues de 2001:");
+
+            bookRepository.findBooksPublishedAfterYear(2001)
+                    .forEach(book -> System.out.println(book.getTitle()));
         };
     }
 }
