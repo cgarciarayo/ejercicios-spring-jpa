@@ -31,4 +31,37 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
      */
     List<Book> findByPublicationYearGreaterThan(Integer publicationYear);
 
+    /**
+     * Obtengo los libros publicados en un año concreto.
+     *
+     * @param publicationYear año de publicación a buscar
+     * @return lista de libros publicados en el año indicado
+     */
+    List<Book> findByPublicationYear(Integer publicationYear);
+
+    /**
+     * Obtengo un libro a partir de su ISBN.
+     *
+     * @param isbn isbn del libro
+     * @return libro encontrado o null si no existe
+     */
+    Book findByIsbn(String isbn);
+
+    /**
+     * Obtengo los libros de una editorial concreta.
+     *
+     * @param publisherName nombre de la editorial
+     * @return lista de libros de la editorial indicada
+     */
+    List<Book> findByPublisherPublisherName(String publisherName);
+
+    /**
+     * Obtengo los libros de una editorial concreta publicados en un año determinado.
+     *
+     * @param publisherName nombre de la editorial
+     * @param publicationYear año de publicación
+     * @return lista de libros que cumplen ambas condiciones
+     */
+    List<Book> findByPublisherPublisherNameAndPublicationYear(String publisherName, Integer publicationYear);
+
 }
