@@ -124,5 +124,21 @@ findByPublisherPublisherName(String publisherName)
 findByPublisherPublisherNameAndPublicationYear(String publisherName, Integer publicationYear)
 ```
 
+## Ejercicio opcional – Documentación JavaDoc
+
+En este ejercicio he añadido comentarios JavaDoc en las clases, atributos y métodos del proyecto con el objetivo de documentar correctamente el código.
+
+He utilizado el formato estándar de JavaDoc, incluyendo descripciones en primera persona y anotaciones como @param y @return en los métodos.
+
+La documentación se ha generado utilizando Maven mediante el siguiente comando:
+
+mvn javadoc:javadoc
+
+El resultado se puede consultar en la siguiente ruta del proyecto:
+
+target/site/apidocs/index.html
+
+<img width="1864" height="885" alt="Captura de pantalla 2026-03-18 103112" src="https://github.com/user-attachments/assets/eb8b8108-44ad-4273-ac2d-7863289b9d72" />
+
 ---
 
