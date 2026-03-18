@@ -141,4 +141,29 @@ target/site/apidocs/index.html
 <img width="1864" height="885" alt="Captura de pantalla 2026-03-18 103112" src="https://github.com/user-attachments/assets/eb8b8108-44ad-4273-ac2d-7863289b9d72" />
 
 ---
+## Ejercicio opcional – Uso de logs en Spring
+
+En este ejercicio he añadido mensajes de seguimiento en la consola de la aplicación para mostrar el procesamiento de la lógica en los endpoints desarrollados.
+
+Para ello, he utilizado instrucciones System.out.println dentro del controlador, mostrando mensajes informativos cada vez que se realiza una petición a la API.
+
+Los mensajes siguen un formato descriptivo, indicando el usuario y la acción realizada, por ejemplo:
+
+El usuario [admin] ha realizado la accion: consultar todos los libros
+
+De esta manera, he podido comprobar en la consola el flujo de ejecución de la aplicación. Adjunto capturas con los mensajes mostrados durante las pruebas.
+<img width="886" height="1191" alt="image" src="https://github.com/user-attachments/assets/dc06d4af-17cf-47b6-a363-7cadf38825a0" />
+<img width="886" height="584" alt="image" src="https://github.com/user-attachments/assets/0e621149-337a-4bd3-9470-f7e09341c8db" />
+<img width="886" height="1251" alt="image" src="https://github.com/user-attachments/assets/68267fbb-4183-4957-bdd1-fd64f8faeabc" />
+<img width="886" height="387" alt="image" src="https://github.com/user-attachments/assets/f1c5b7f6-88a8-4b27-85f6-44284c5049b5" />
+<img width="886" height="1205" alt="image" src="https://github.com/user-attachments/assets/d433bb61-779e-4fd6-a051-61d37e96e7ef" />
+<img width="886" height="415" alt="image" src="https://github.com/user-attachments/assets/481e9c73-c704-4046-a032-1fc191ab8348" />
+
+
+
+
+
+
+
+
 
