@@ -159,6 +159,23 @@ De esta manera, he podido comprobar en la consola el flujo de ejecución de la a
 <img width="886" height="1205" alt="image" src="https://github.com/user-attachments/assets/d433bb61-779e-4fd6-a051-61d37e96e7ef" />
 <img width="886" height="415" alt="image" src="https://github.com/user-attachments/assets/481e9c73-c704-4046-a032-1fc191ab8348" />
 
+---
+## Ejercicio opcional – Validaciones
+
+En este ejercicio he implementado validaciones en la API utilizando anotaciones de Java Bean Validation como `@Valid`, `@NotNull`, `@NotBlank`, `@Size` y `@Min`.
+
+Para ello, he creado un DTO (`BookRequestDto`) donde he definido las restricciones necesarias para controlar los datos recibidos en las peticiones HTTP antes de procesarlos.
+
+Además, en el controlador (`BookController`) he utilizado la anotación `@Valid` en el método de creación de libros para que Spring valide automáticamente los datos enviados en la petición.
+
+He realizado pruebas con Postman:
+- Envío correcto → devuelve un **200 OK** y guarda el libro en la base de datos.
+- Envío incorrecto → devuelve un **400 Bad Request**, indicando que los datos no cumplen las validaciones definidas.
+  
+  <img width="886" height="1324" alt="image" src="https://github.com/user-attachments/assets/8ed5ad9b-49c7-47f4-9c9f-f5dbed68510c" />
+  <img width="886" height="1082" alt="image" src="https://github.com/user-attachments/assets/f0157a97-fb84-426a-a804-4c2e966873d1" />
+
+
 
 
 
