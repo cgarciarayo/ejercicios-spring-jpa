@@ -174,8 +174,24 @@ He realizado pruebas con Postman:
   
   <img width="886" height="1324" alt="image" src="https://github.com/user-attachments/assets/8ed5ad9b-49c7-47f4-9c9f-f5dbed68510c" />
   <img width="886" height="1082" alt="image" src="https://github.com/user-attachments/assets/f0157a97-fb84-426a-a804-4c2e966873d1" />
+  
+---
 
+## Ejercicio opcional – Excepciones
 
+En este ejercicio he implementado un manejador global de excepciones utilizando `@ControllerAdvice` y `@ExceptionHandler`.
+
+He creado una clase `GlobalExceptionHandler` que captura los errores de validación (`MethodArgumentNotValidException`) y otras excepciones generales.
+
+Además, he definido una clase `ErrorResponseDto` para estructurar la respuesta de error en formato JSON, incluyendo:
+- código de error
+- mensaje descriptivo
+- marca de tiempo
+- lista de errores
+
+De esta forma, cuando se produce un error en la API, se devuelve una respuesta clara, estructurada y detallada, facilitando la depuración y el uso de la aplicación.
+
+<img width="886" height="1175" alt="image" src="https://github.com/user-attachments/assets/6d91c525-2190-4063-91ef-1557efa96810" />
 
 
 
