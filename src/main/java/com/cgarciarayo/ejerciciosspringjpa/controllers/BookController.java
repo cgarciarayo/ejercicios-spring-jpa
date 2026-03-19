@@ -33,7 +33,6 @@ public class BookController {
      */
     @GetMapping
     public List<Book> getAllBooks() {
-        System.out.println("El usuario [admin] ha realizado la accion: consultar todos los libros");
         return bookService.getAllBooks();
     }
 
@@ -45,7 +44,6 @@ public class BookController {
      */
     @GetMapping("/year/{year}")
     public List<Book> getBooksByYear(@PathVariable Integer year) {
-        System.out.println("El usuario [admin] ha realizado la accion: consultar libros del anio " + year);
         return bookService.getBooksByYear(year);
     }
 
@@ -53,11 +51,10 @@ public class BookController {
      * Obtengo un libro a partir de su isbn.
      *
      * @param isbn isbn del libro
-     * @return libro encontrado o null si no existe
+     * @return libro encontrado
      */
     @GetMapping("/isbn/{isbn}")
     public Book getBookByIsbn(@PathVariable String isbn) {
-        System.out.println("El usuario [admin] ha realizado la accion: consultar libro con isbn " + isbn);
         return bookService.getBookByIsbn(isbn);
     }
 
@@ -69,7 +66,6 @@ public class BookController {
      */
     @GetMapping("/publisher/{publisher}")
     public List<Book> getBooksByPublisher(@PathVariable String publisher) {
-        System.out.println("El usuario [admin] ha realizado la accion: consultar libros de la editorial " + publisher);
         return bookService.getBooksByPublisher(publisher);
     }
 
@@ -85,9 +81,6 @@ public class BookController {
             @PathVariable String publisher,
             @PathVariable Integer year) {
 
-        System.out.println("El usuario [admin] ha realizado la accion: consultar libros de la editorial "
-                + publisher + " publicados en el anio " + year);
-
         return bookService.getBooksByPublisherAndYear(publisher, year);
     }
 
@@ -99,7 +92,6 @@ public class BookController {
      */
     @PostMapping
     public Book createBook(@Valid @RequestBody BookRequestDto bookRequestDto) {
-        System.out.println("El usuario [admin] ha realizado la accion: crear un nuevo libro");
         return bookService.createBook(bookRequestDto);
     }
 }

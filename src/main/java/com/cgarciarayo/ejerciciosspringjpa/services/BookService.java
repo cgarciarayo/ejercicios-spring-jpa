@@ -9,17 +9,20 @@ import com.cgarciarayo.ejerciciosspringjpa.repositories.AuthorRepository;
 import com.cgarciarayo.ejerciciosspringjpa.repositories.BookRepository;
 import com.cgarciarayo.ejerciciosspringjpa.repositories.PublisherRepository;
 import com.cgarciarayo.ejerciciosspringjpa.repositories.ThemeRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-/**
- * Gestiono la logica de negocio relacionada con los libros.
+/**Gestiono la logica de negocio relacionada con los libros.
  */
 @Service
 public class BookService {
+
+    private static final Logger log = LoggerFactory.getLogger(BookService.class);
 
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
@@ -28,11 +31,6 @@ public class BookService {
 
     /**
      * Inyecto los repositorios necesarios para trabajar con libros.
-     *
-     * @param bookRepository repositorio de libros
-     * @param authorRepository repositorio de autores
-     * @param publisherRepository repositorio de editoriales
-     * @param themeRepository repositorio de tematicas
      */
     public BookService(
             BookRepository bookRepository,
@@ -46,63 +44,42 @@ public class BookService {
         this.themeRepository = themeRepository;
     }
 
-    /**
-     * Obtengo todos los libros.
-     *
-     * @return lista de libros
-     */
     public List<Book> getAllBooks() {
+        log.info("El usuario [admin] ha realizado la accion: consultar todos los libros");
         return bookRepository.findAll();
     }
 
-    /**
-     * Obtengo los libros publicados en un anio concreto.
-     *
-     * @param year anio de publicacion
-     * @return lista de libros publicados en ese anio
-     */
     public List<Book> getBooksByYear(Integer year) {
+        log.info("El usuario [admin] ha realizado la accion: consultar libros del anio {}", year);
         return bookRepository.findByPublicationYear(year);
     }
 
-    /**
-     * Obtengo un libro a partir de su isbn.
-     *
-     * @param isbn isbn del libro
-     * @return libro encontrado o null si no existe
-     */
     public Book getBookByIsbn(String isbn) {
-        return bookRepository.findByIsbn(isbn);
+        log.info("El usuario [admin] ha realizado la accion: consultar libro con isbn {}", isbn);
+
+        Book book = bookRepository.findByIsbn(isbn);
+
+        if (book == null) {
+            log.error("Libro no encontrado con isbn {}", isbn);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Libro no encontrado.");
+        }
+
+        return book;
     }
 
-    /**
-     * Obtengo los libros de una editorial concreta.
-     *
-     * @param publisher nombre de la editorial
-     * @return lista de libros de la editorial indicada
-     */
     public List<Book> getBooksByPublisher(String publisher) {
+        log.info("El usuario [admin] ha realizado la accion: consultar libros de la editorial {}", publisher);
         return bookRepository.findByPublisherPublisherName(publisher);
     }
 
-    /**
-     * Obtengo los libros de una editorial concreta publicados en un anio determinado.
-     *
-     * @param publisher nombre de la editorial
-     * @param year anio de publicacion
-     * @return lista de libros que cumplen ambas condiciones
-     */
     public List<Book> getBooksByPublisherAndYear(String publisher, Integer year) {
+        log.info("El usuario [admin] ha realizado la accion: consultar libros de la editorial {} publicados en el anio {}", publisher, year);
         return bookRepository.findByPublisherPublisherNameAndPublicationYear(publisher, year);
     }
 
-    /**
-     * Creo un nuevo libro a partir de los datos recibidos.
-     *
-     * @param bookRequestDto datos del libro a crear
-     * @return libro guardado
-     */
     public Book createBook(BookRequestDto bookRequestDto) {
+        log.info("El usuario [admin] ha realizado la accion: crear un nuevo libro");
+
         Author author = authorRepository.findById(bookRequestDto.getAuthorId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Autor no encontrado."));
 
