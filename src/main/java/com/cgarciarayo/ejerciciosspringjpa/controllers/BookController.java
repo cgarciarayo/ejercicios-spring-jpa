@@ -1,18 +1,10 @@
 package com.cgarciarayo.ejerciciosspringjpa.controllers;
 
 import com.cgarciarayo.ejerciciosspringjpa.dtos.BookRequestDto;
-import com.cgarciarayo.ejerciciosspringjpa.entities.Author;
 import com.cgarciarayo.ejerciciosspringjpa.entities.Book;
-import com.cgarciarayo.ejerciciosspringjpa.entities.Publisher;
-import com.cgarciarayo.ejerciciosspringjpa.entities.Theme;
-import com.cgarciarayo.ejerciciosspringjpa.repositories.AuthorRepository;
-import com.cgarciarayo.ejerciciosspringjpa.repositories.BookRepository;
-import com.cgarciarayo.ejerciciosspringjpa.repositories.PublisherRepository;
-import com.cgarciarayo.ejerciciosspringjpa.repositories.ThemeRepository;
+import com.cgarciarayo.ejerciciosspringjpa.services.BookService;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -23,29 +15,15 @@ import java.util.List;
 @RequestMapping("/books")
 public class BookController {
 
-    private final BookRepository bookRepository;
-    private final AuthorRepository authorRepository;
-    private final PublisherRepository publisherRepository;
-    private final ThemeRepository themeRepository;
+    private final BookService bookService;
 
     /**
-     * Inyecto los repositorios necesarios en el controlador.
+     * Inyecto el servicio de libros en el controlador.
      *
-     * @param bookRepository repositorio de libros
-     * @param authorRepository repositorio de autores
-     * @param publisherRepository repositorio de editoriales
-     * @param themeRepository repositorio de tematicas
+     * @param bookService servicio de libros
      */
-    public BookController(
-            BookRepository bookRepository,
-            AuthorRepository authorRepository,
-            PublisherRepository publisherRepository,
-            ThemeRepository themeRepository) {
-
-        this.bookRepository = bookRepository;
-        this.authorRepository = authorRepository;
-        this.publisherRepository = publisherRepository;
-        this.themeRepository = themeRepository;
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
     }
 
     /**
@@ -56,7 +34,7 @@ public class BookController {
     @GetMapping
     public List<Book> getAllBooks() {
         System.out.println("El usuario [admin] ha realizado la accion: consultar todos los libros");
-        return bookRepository.findAll();
+        return bookService.getAllBooks();
     }
 
     /**
@@ -68,7 +46,7 @@ public class BookController {
     @GetMapping("/year/{year}")
     public List<Book> getBooksByYear(@PathVariable Integer year) {
         System.out.println("El usuario [admin] ha realizado la accion: consultar libros del anio " + year);
-        return bookRepository.findByPublicationYear(year);
+        return bookService.getBooksByYear(year);
     }
 
     /**
@@ -80,7 +58,7 @@ public class BookController {
     @GetMapping("/isbn/{isbn}")
     public Book getBookByIsbn(@PathVariable String isbn) {
         System.out.println("El usuario [admin] ha realizado la accion: consultar libro con isbn " + isbn);
-        return bookRepository.findByIsbn(isbn);
+        return bookService.getBookByIsbn(isbn);
     }
 
     /**
@@ -92,7 +70,7 @@ public class BookController {
     @GetMapping("/publisher/{publisher}")
     public List<Book> getBooksByPublisher(@PathVariable String publisher) {
         System.out.println("El usuario [admin] ha realizado la accion: consultar libros de la editorial " + publisher);
-        return bookRepository.findByPublisherPublisherName(publisher);
+        return bookService.getBooksByPublisher(publisher);
     }
 
     /**
@@ -110,7 +88,7 @@ public class BookController {
         System.out.println("El usuario [admin] ha realizado la accion: consultar libros de la editorial "
                 + publisher + " publicados en el anio " + year);
 
-        return bookRepository.findByPublisherPublisherNameAndPublicationYear(publisher, year);
+        return bookService.getBooksByPublisherAndYear(publisher, year);
     }
 
     /**
@@ -122,24 +100,6 @@ public class BookController {
     @PostMapping
     public Book createBook(@Valid @RequestBody BookRequestDto bookRequestDto) {
         System.out.println("El usuario [admin] ha realizado la accion: crear un nuevo libro");
-
-        Author author = authorRepository.findById(bookRequestDto.getAuthorId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Autor no encontrado."));
-
-        Publisher publisher = publisherRepository.findById(bookRequestDto.getPublisherId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Editorial no encontrada."));
-
-        Theme theme = themeRepository.findById(bookRequestDto.getThemeId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tematica no encontrada."));
-
-        Book book = new Book();
-        book.setIsbn(bookRequestDto.getIsbn());
-        book.setTitle(bookRequestDto.getTitle());
-        book.setPublicationYear(bookRequestDto.getPublicationYear());
-        book.setAuthor(author);
-        book.setPublisher(publisher);
-        book.setTheme(theme);
-
-        return bookRepository.save(book);
+        return bookService.createBook(bookRequestDto);
     }
 }
